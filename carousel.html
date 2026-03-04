@@ -13,7 +13,7 @@
             align-items: center;
             background: linear-gradient(135deg,#997BC9, #764ba2, #667eea,#6C47A6,#4F1AA1 );
             font-family: Arial, sans-serif;
-            background-image: url();
+            
         }
 
         .container{
@@ -78,6 +78,7 @@
         let imagecount = 0;
 
         let images = [
+            "https://i.pinimg.com/1200x/6d/27/0c/6d270c5961d575b31e79488869e9f363.jpg",
             "https://i.pinimg.com/736x/ad/c8/65/adc8657f7d5546c444488a870b2ad203.jpg",
             "https://i.pinimg.com/736x/1d/bd/c9/1dbdc9f627bdab27caf306ef8fd285c0.jpg",
             "https://i.pinimg.com/736x/0b/5e/b4/0b5eb439a0fe2c71aa7b427d3402e1ea.jpg",
@@ -117,6 +118,18 @@
             }
             document.getElementById("slider").src = images[imagecount];
         }
+        function callback()
+        {
+            if(imagecount<images.length-1)
+            imagecount++
+        else
+        {
+        imagecount=0
+        document.getElementById("slider").setAttribute(src = images[imagecount]);
+
+        }
+    }
+        setInterval(callback,1000)
     </script>
 
 </body>
