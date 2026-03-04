@@ -1,111 +1,123 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <style>
-            body{
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        font-family: Arial, sans-serif;
-    }
+<head>
+    <meta charset="UTF-8">
+    <title>Image Slider</title>
 
-    .container{
-        background: white;
-        padding: 25px;
-        border-radius: 15px;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-        text-align: center;
-    }
+    <style>
+        body{
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg,#997BC9, #764ba2, #667eea,#6C47A6,#4F1AA1 );
+            font-family: Arial, sans-serif;
+            background-image: url();
+        }
 
-    img{
-        width: 300px;
-        height: 400px;
-        object-fit: cover;
-        border-radius: 12px;
-        transition: transform 0.4s ease;
-    }
+        .container{
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            text-align: center;
+        }
 
-    img:hover{
-        transform: scale(1.05);
-    }
+        img{
+            width: 300px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.4s ease;
+        }
 
-    .buttons{
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-    }
+        img:hover{
+            transform: scale(1.05);
+        }
 
-    button{
-        padding: 10px 25px;
-        border: none;
-        border-radius: 25px;
-        background: #764ba2;
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
+        .buttons{
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
 
-    button:hover{
-        background: #5a3a87;
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
+        button{
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            background: #764ba2;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
+        button:hover{
+            background: #5a3a87;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
 
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <img id="slider" src="" alt="bannerimages"/>
-             <button onclick="prevpic()"> Prev </button>
-            <button onclick="changepic()"> next </button>
+<body>
+
+    <div class="container">
+        <img id="slider" src="" alt="bannerimages"/>
+
+        <!-- Buttons moved inside this div -->
+        <div class="buttons">
+            <button onclick="prevpic()">Prev</button>
+            <button onclick="changepic()">Next</button>
         </div>
-        <script>
-            let imagecount=0
-            
-            let images=[
-                "https://i.pinimg.com/736x/ad/c8/65/adc8657f7d5546c444488a870b2ad203.jpg",
-                "https://i.pinimg.com/736x/1d/bd/c9/1dbdc9f627bdab27caf306ef8fd285c0.jpg",
-                "https://i.pinimg.com/736x/0b/5e/b4/0b5eb439a0fe2c71aa7b427d3402e1ea.jpg",
-                "https://i.pinimg.com/736x/01/b4/ec/01b4ecb877a8dc40208353b38d9311d2.jpg",
-                "https://i.pinimg.com/736x/77/98/5f/77985f67182ef4518ce2792d4bd610c9.jpg",
-                "https://i.pinimg.com/1200x/73/e7/ff/73e7ff9043ff44cb36c2a52c2804aa50.jpg",
-                "https://i.pinimg.com/736x/03/c6/03/03c603057fafb14d8032d3dd70b9c2d6.jpg",
-                "https://i.pinimg.com/1200x/bb/58/04/bb580461b29d28e2dea9ef033c6f4c99.jpg",
-                "https://i.pinimg.com/736x/fc/88/90/fc88902d566d8101cd6363393ed3a83d.jpg",
-                "https://i.pinimg.com/736x/e5/e1/dc/e5e1dcf9777553b6516fcd553513901f.jpg",
-                "https://i.pinimg.com/736x/b5/9b/d7/b59bd7101463943a58754869d581b98f.jpg",
-                "https://i.pinimg.com/736x/9a/b1/19/9ab119e587d1c128c614f7d642ad8852.jpg",
-                "https://i.pinimg.com/736x/4f/24/99/4f2499061cca79e8d7c46b4169224792.jpg",
-                "https://i.pinimg.com/736x/2c/46/7b/2c467bdce03e357a2aca0d204e5095be.jpg",
-                "https://i.pinimg.com/736x/1e/57/1b/1e571be7c92b89e137896dcfad520c2d.jpg",
-                "https://i.pinimg.com/736x/0c/49/90/0c4990626177a0e35fe9c3eaea64a4a1.jpg",
-                "https://i.pinimg.com/736x/98/18/fb/9818fb75e012d9b3f961f8e82a16ab61.jpg",
-                "https://i.pinimg.com/1200x/03/3d/93/033d93482ba224707df1995b818a95cf.jpg",
-                "https://i.pinimg.com/736x/35/38/72/353872fff386a82d3d9378ed70762e9a.jpg",
-                "https://i.pinimg.com/1200x/9d/9c/15/9d9c15d49cf1a9ee0eaef3beb28133bc.jpg"
+    </div>
 
-            ]
-            document.getElementById("slider").setAttribute("src",images[imagecount])
-            function changepic()
-            {
-                if (imagecount<images.length-1)
-                imagecount+=1
-                document.getElementById("slider").setAttribute("src",images[imagecount])
-                console.log("Changepic")
+    <script>
+        let imagecount = 0;
+
+        let images = [
+            "https://i.pinimg.com/736x/ad/c8/65/adc8657f7d5546c444488a870b2ad203.jpg",
+            "https://i.pinimg.com/736x/1d/bd/c9/1dbdc9f627bdab27caf306ef8fd285c0.jpg",
+            "https://i.pinimg.com/736x/0b/5e/b4/0b5eb439a0fe2c71aa7b427d3402e1ea.jpg",
+            "https://i.pinimg.com/736x/01/b4/ec/01b4ecb877a8dc40208353b38d9311d2.jpg",
+            "https://i.pinimg.com/736x/77/98/5f/77985f67182ef4518ce2792d4bd610c9.jpg",
+            "https://i.pinimg.com/1200x/73/e7/ff/73e7ff9043ff44cb36c2a52c2804aa50.jpg",
+            "https://i.pinimg.com/736x/03/c6/03/03c603057fafb14d8032d3dd70b9c2d6.jpg",
+            "https://i.pinimg.com/1200x/bb/58/04/bb580461b29d28e2dea9ef033c6f4c99.jpg",
+            "https://i.pinimg.com/736x/fc/88/90/fc88902d566d8101cd6363393ed3a83d.jpg",
+            "https://i.pinimg.com/736x/e5/e1/dc/e5e1dcf9777553b6516fcd553513901f.jpg",
+            "https://i.pinimg.com/736x/b5/9b/d7/b59bd7101463943a58754869d581b98f.jpg",
+            "https://i.pinimg.com/736x/9a/b1/19/9ab119e587d1c128c614f7d642ad8852.jpg",
+            "https://i.pinimg.com/736x/4f/24/99/4f2499061cca79e8d7c46b4169224792.jpg",
+            "https://i.pinimg.com/736x/2c/46/7b/2c467bdce03e357a2aca0d204e5095be.jpg",
+            "https://i.pinimg.com/736x/1e/57/1b/1e571be7c92b89e137896dcfad520c2d.jpg",
+            "https://i.pinimg.com/736x/0c/49/90/0c4990626177a0e35fe9c3eaea64a4a1.jpg",
+            "https://i.pinimg.com/736x/98/18/fb/9818fb75e012d9b3f961f8e82a16ab61.jpg",
+            "https://i.pinimg.com/1200x/03/3d/93/033d93482ba224707df1995b818a95cf.jpg",
+            "https://i.pinimg.com/736x/35/38/72/353872fff386a82d3d9378ed70762e9a.jpg",
+            "https://i.pinimg.com/1200x/9d/9c/15/9d9c15d49cf1a9ee0eaef3beb28133bc.jpg",
+            "https://i.pinimg.com/1200x/81/00/39/8100397ef3e98e13842711556d79d4e7.jpg",
+            "https://i.pinimg.com/1200x/b0/62/85/b062858d9c7e5f66f5f4d346345f1c50.jpg"
+        ];
+
+        document.getElementById("slider").src = images[imagecount];
+
+        function changepic(){
+            if (imagecount < images.length - 1){
+                imagecount++;
             }
-             function prevpic(){
-            if (imagecount > 0) {
+            document.getElementById("slider").src = images[imagecount];
+        }
+
+        function prevpic(){
+            if (imagecount > 0){
                 imagecount--;
             }
-            document.getElementById("slider").setAttribute("src", images[imagecount]);
+            document.getElementById("slider").src = images[imagecount];
         }
-        </script>
-    </body>
+    </script>
+
+</body>
 </html>
